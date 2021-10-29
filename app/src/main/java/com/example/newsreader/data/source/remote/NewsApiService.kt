@@ -1,4 +1,4 @@
-package com.example.newsreader.data.source
+package com.example.newsreader.data.source.remote
 
 import com.example.newsreader.data.models.NewsResponse
 import io.reactivex.Single
