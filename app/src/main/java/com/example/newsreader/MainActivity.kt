@@ -13,29 +13,29 @@ import com.example.newsreader.data.source.remote.ArticlesRemoteDataSource
 import com.example.newsreader.data.source.remote.NewsApiService
 import com.example.newsreader.databinding.ActivityMainBinding
 import com.example.newsreader.util.Constants
+import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private lateinit var activityMainBinding: ActivityMainBinding
     private lateinit var newsViewModel: NewsViewModel
 
+    @Inject
+    lateinit var retrofit: Retrofit
+
     private val subscription = CompositeDisposable()
         override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater, null, false)
         setContentView(activityMainBinding.root)
-
-        val retrofit =  Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(Constants.NEWS_API_BASE_URL)
-            .build()
 
         val newsApi = retrofit.create(NewsApiService::class.java)
         val remoteDataSource = ArticlesRemoteDataSource(newsApi)
