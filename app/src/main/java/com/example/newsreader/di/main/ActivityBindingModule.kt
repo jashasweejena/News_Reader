@@ -1,7 +1,9 @@
 package com.example.newsreader.di
 
-import com.example.newsreader.MainActivity
+import com.example.newsreader.ui.activities.MainActivity
 import com.example.newsreader.data.source.remote.NewsApiService
+import com.example.newsreader.di.main.NewsListFragmentBindingModule
+import com.example.newsreader.di.main.NewsListViewModelBindingModule
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -11,13 +13,14 @@ import retrofit2.Retrofit
 abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [
         NewsListFragmentBindingModule::class,
-        MainActivityModule::class
+        NewsListViewModelBindingModule::class,
+        MainActivityModule::class,
     ])
     abstract fun bindMainActivity(): MainActivity
 }
 
 @Module
-class MainActivityModule() {
+class MainActivityModule {
 
     @Provides
     fun providesNewsApiService(retrofit: Retrofit): NewsApiService =

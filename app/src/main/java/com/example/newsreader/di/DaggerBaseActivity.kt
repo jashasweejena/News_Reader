@@ -1,4 +1,4 @@
-package com.example.newsreader
+package com.example.newsreader.di
 
 import android.os.Bundle
 import android.os.PersistableBundle

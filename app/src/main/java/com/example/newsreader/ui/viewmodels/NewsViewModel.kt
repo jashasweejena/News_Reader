@@ -1,4 +1,4 @@
-package com.example.newsreader
+package com.example.newsreader.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.example.newsreader.data.models.Article

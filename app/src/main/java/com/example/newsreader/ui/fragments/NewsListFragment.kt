@@ -1,4 +1,4 @@
-package com.example.newsreader
+package com.example.newsreader.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsreader.ui.adapters.NewsListAdapter
+import com.example.newsreader.ui.viewmodels.NewsViewModel
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.databinding.FragmentNewsListBinding
 import dagger.android.support.AndroidSupportInjection
@@ -28,7 +30,7 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
-    lateinit var viewModelFactory: NewsViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private var viewModel: NewsViewModel? = null
 

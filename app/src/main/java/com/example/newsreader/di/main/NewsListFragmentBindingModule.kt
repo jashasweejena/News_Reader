@@ -1,7 +1,7 @@
-package com.example.newsreader.di
+package com.example.newsreader.di.main
 
 import androidx.fragment.app.Fragment
-import com.example.newsreader.NewsListFragment
+import com.example.newsreader.ui.fragments.NewsListFragment
 import com.example.newsreader.di.annotations.FragmentKey
 import dagger.Binds
 import dagger.Module

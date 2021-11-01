@@ -1,4 +1,4 @@
-package com.example.newsreader.di.scopes
+package com.example.newsreader.di.annotations.scopes
 import javax.inject.Scope
 
 @MustBeDocumented
