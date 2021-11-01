@@ -2,6 +2,7 @@ package com.example.newsreader.di
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
 import com.example.newsreader.util.Constants
 import dagger.Binds
 import dagger.Module
@@ -25,6 +26,12 @@ abstract class AppModule {
                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                .addConverterFactory(GsonConverterFactory.create())
                .build()
+       }
+
+       @Singleton
+       @Provides
+       fun provideConnectivityManager(application: Application): ConnectivityManager {
+           return application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
        }
    }
 }
