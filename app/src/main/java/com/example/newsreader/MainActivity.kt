@@ -1,28 +1,23 @@
 package com.example.newsreader
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.data.source.NewsRepository
 import com.example.newsreader.data.source.remote.ArticlesRemoteDataSource
 import com.example.newsreader.data.source.remote.NewsApiService
 import com.example.newsreader.databinding.ActivityMainBinding
-import com.example.newsreader.util.Constants
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerBaseActivity() {
     private val TAG = "MainActivity"
     private lateinit var activityMainBinding: ActivityMainBinding
     private lateinit var newsViewModel: NewsViewModel
@@ -30,8 +25,16 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var retrofit: Retrofit
 
+    @Inject
+    lateinit var fragmentFactory: FragmentFactory
+
     private val subscription = CompositeDisposable()
-        override fun onCreate(savedInstanceState: Bundle?) {
+
+    override fun executeBeforeOnCreate() {
+        supportFragmentManager.fragmentFactory = fragmentFactory
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater, null, false)
@@ -45,15 +48,15 @@ class MainActivity : AppCompatActivity() {
         newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository)).get(NewsViewModel::class.java)
 
         val adapter = NewsListAdapter()
-        activityMainBinding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        activityMainBinding.recyclerView.adapter = adapter
+//        activityMainBinding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+//        activityMainBinding.recyclerView.adapter = adapter
         subscription.add(
             newsViewModel.getNewsArticles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
                     { articles: List<Article> ->
-                        adapter.refreshData(articles as ArrayList<Article>)
+//                        adapter.refreshData(articles as ArrayList<Article>)
                     }
                 )
                 {
