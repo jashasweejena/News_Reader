@@ -28,4 +28,5 @@ ext {
     retrofitAdapterRxJavaVersion = '2.3.0'
     gsonVersion = '2.8.8'
     daggerVersion = "2.35.1"
+    roomVersion = "2.3.0"
 }

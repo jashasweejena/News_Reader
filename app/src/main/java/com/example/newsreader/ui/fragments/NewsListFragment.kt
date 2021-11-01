@@ -25,6 +25,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
+    //TODO: Make it dark mode compatible
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -70,6 +71,7 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe (
                         { articles: List<Article> ->
+                            //TODO: Remove cast from arraylist
                         adapter.refreshData(articles as ArrayList<Article>)
                         }
                     )

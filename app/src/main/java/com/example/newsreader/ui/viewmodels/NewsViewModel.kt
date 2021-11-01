@@ -10,5 +10,5 @@ class NewsViewModel
 @Inject constructor(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
-    fun getNewsArticles(): Single<List<Article>> = newsRepository.getNewsArticles()
+    fun getNewsArticles(): Single<List<Article>> = newsRepository.getArticles()
 }
