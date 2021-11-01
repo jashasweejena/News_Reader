@@ -18,17 +18,10 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 class MainActivity : DaggerBaseActivity() {
-    private val TAG = "MainActivity"
     private lateinit var activityMainBinding: ActivityMainBinding
-    private lateinit var newsViewModel: NewsViewModel
-
-    @Inject
-    lateinit var retrofit: Retrofit
 
     @Inject
     lateinit var fragmentFactory: FragmentFactory
-
-    private val subscription = CompositeDisposable()
 
     override fun executeBeforeOnCreate() {
         supportFragmentManager.fragmentFactory = fragmentFactory
@@ -39,17 +32,5 @@ class MainActivity : DaggerBaseActivity() {
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater, null, false)
         setContentView(activityMainBinding.root)
-
-        val newsApi = retrofit.create(NewsApiService::class.java)
-        val remoteDataSource = ArticlesRemoteDataSource(newsApi)
-
-        val newsRepository = NewsRepository(remoteDataSource)
-
-        newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository)).get(NewsViewModel::class.java)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        subscription.clear()
     }
 }
