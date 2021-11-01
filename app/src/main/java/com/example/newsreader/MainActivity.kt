@@ -46,24 +46,6 @@ class MainActivity : DaggerBaseActivity() {
         val newsRepository = NewsRepository(remoteDataSource)
 
         newsViewModel = ViewModelProvider(this, NewsViewModelFactory(newsRepository)).get(NewsViewModel::class.java)
-
-        val adapter = NewsListAdapter()
-//        activityMainBinding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-//        activityMainBinding.recyclerView.adapter = adapter
-        subscription.add(
-            newsViewModel.getNewsArticles()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                    { articles: List<Article> ->
-//                        adapter.refreshData(articles as ArrayList<Article>)
-                    }
-                )
-                {
-                    Log.d(TAG, "onCreate: " + it.message)
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                }
-        )
     }
 
     override fun onDestroy() {
