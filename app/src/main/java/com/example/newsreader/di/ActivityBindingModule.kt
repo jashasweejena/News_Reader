@@ -11,8 +11,6 @@ import retrofit2.Retrofit
 abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [
         NewsListFragmentBindingModule::class,
-        FragmentBuilder::class,
-        ViewModelBuilder::class,
         MainActivityModule::class
     ])
     abstract fun bindMainActivity(): MainActivity
