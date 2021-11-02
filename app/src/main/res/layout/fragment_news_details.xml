@@ -64,7 +64,7 @@
         android:id="@+id/content_tv"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@{news.content}"
+        android:text="@{news.content.toString()}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
