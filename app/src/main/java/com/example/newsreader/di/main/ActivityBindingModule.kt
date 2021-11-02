@@ -3,6 +3,7 @@ package com.example.newsreader.di
 import com.example.newsreader.ui.activities.MainActivity
 import com.example.newsreader.data.source.remote.NewsApiService
 import com.example.newsreader.di.main.DataSourceModule
+import com.example.newsreader.di.main.NewsDetailsFragmentBindingModule
 import com.example.newsreader.di.main.NewsListFragmentBindingModule
 import com.example.newsreader.di.main.NewsListViewModelBindingModule
 import dagger.Module
@@ -15,6 +16,7 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [
         NewsListFragmentBindingModule::class,
         NewsListViewModelBindingModule::class,
+        NewsDetailsFragmentBindingModule::class,
         MainActivityModule::class,
         DataSourceModule::class
     ])

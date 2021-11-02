@@ -1,10 +1,13 @@
 package com.example.newsreader.data.models
 
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "Articles")
 data class Article(
     @PrimaryKey
@@ -25,4 +28,4 @@ data class Article(
     val url: String,
     @SerializedName("urlToImage")
     val urlToImage: String
-)
+) : Parcelable

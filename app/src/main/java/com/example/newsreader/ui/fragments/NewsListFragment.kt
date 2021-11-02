@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsreader.ui.adapters.NewsListAdapter
 import com.example.newsreader.ui.viewmodels.NewsViewModel
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.databinding.FragmentNewsListBinding
+import com.example.newsreader.ui.adapters.NewsListItemClickListener
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -60,9 +62,19 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val adapter = NewsListAdapter()
+        val adapter = NewsListAdapter(
+            newsListItemClickListener = object: NewsListItemClickListener {
+                override fun onNewsListItemClick(article: Article) {
+                    findNavController().navigate(
+                        NewsListFragmentDirections.actionNewsListFragmentToNewsDetailsFragment(article)
+                    )
+                }
+
+            }
+        )
         binding.recyclerView.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         binding.recyclerView.adapter = adapter
+        //TODO: Do not re-fetch data when coming back from NewsDetailsFragment
         viewModel?.let { viewModel ->
             subscription.add(
                 viewModel.getNewsArticles()

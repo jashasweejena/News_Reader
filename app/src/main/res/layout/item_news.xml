@@ -6,6 +6,9 @@
         <variable
             name="news"
             type="com.example.newsreader.data.models.Article" />
+        <variable
+            name="listener"
+            type="com.example.newsreader.ui.adapters.NewsListItemClickListener" />
     </data>
 
 <androidx.cardview.widget.CardView
@@ -16,6 +19,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:paddingVertical="20dp"
+        android:onClick="@{() -> listener.onNewsListItemClick(news)}"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

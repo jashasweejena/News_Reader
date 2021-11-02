@@ -8,19 +8,22 @@ import com.example.newsreader.data.models.Article
 import com.example.newsreader.databinding.ItemNewsBinding
 
 class NewsListAdapter(
-    private val articles: ArrayList<Article> = arrayListOf()
+    private val articles: ArrayList<Article> = arrayListOf(),
+    private val newsListItemClickListener: NewsListItemClickListener
 ) : RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemNewsBinding,
+                     private val listener: NewsListItemClickListener) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.news = article
+            binding.listener = listener
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemNewsBinding.inflate(layoutInflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, newsListItemClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,4 +37,8 @@ class NewsListAdapter(
         this.articles.addAll(articles)
         notifyDataSetChanged()
     }
+}
+
+interface NewsListItemClickListener {
+    fun onNewsListItemClick(article: Article)
 }
