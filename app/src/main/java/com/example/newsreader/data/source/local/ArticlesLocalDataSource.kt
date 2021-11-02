@@ -1,5 +1,6 @@
 package com.example.newsreader.data.source.local
 
+import android.util.Log
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.data.source.DataSource
 import io.reactivex.Completable
@@ -15,12 +16,18 @@ class ArticlesLocalDataSource
 
     override fun saveArticles(articles: List<Article>) {
         Completable.fromRunnable {
-            articles.forEach { article ->
+            articles.forEach { article: Article? ->
                 // Use copy function to create a copy of 'article'
                 // to set 'id' of Article object before saving it into room
-                articlesDao.insertArticles(article.copy(id = System.currentTimeMillis()))
+                article?.let {
+                    articlesDao.insertArticles(article.copy(id = System.currentTimeMillis()))
+                }
             }
-        }.subscribeOn(Schedulers.io()).subscribe()
+        }.subscribeOn(Schedulers.io())
+            .subscribe({})
+            {   e: Throwable ->
+                Log.d("ArticlesLocalDataSource", "saveArticles: " + e.message)
+            }
     }
 
     override fun deleteAllArticles() {

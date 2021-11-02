@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsreader.R
 import com.example.newsreader.ui.adapters.NewsListAdapter
 import com.example.newsreader.ui.viewmodels.NewsViewModel
 import com.example.newsreader.data.models.Article
@@ -56,6 +58,11 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            requireActivity().setTheme(R.style.Theme_NewsReader_Dark) //when dark mode is enabled, we use the dark theme
+//        } else {
+//            requireActivity().setTheme(R.style.Theme_NewsReader)  //default app theme
+//        }
         binding = FragmentNewsListBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -3,6 +3,7 @@ package com.example.newsreader.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.databinding.ItemNewsBinding
 
