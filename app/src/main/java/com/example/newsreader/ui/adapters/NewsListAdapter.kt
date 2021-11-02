@@ -3,12 +3,11 @@ package com.example.newsreader.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.databinding.ItemNewsBinding
 
 class NewsListAdapter(
-    private val articles: ArrayList<Article> = arrayListOf(),
+    private val articles: MutableList<Article> = mutableListOf(),
     private val newsListItemClickListener: NewsListItemClickListener
 ) : RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
 
@@ -32,7 +31,7 @@ class NewsListAdapter(
 
     override fun getItemCount() = articles.size
 
-    fun refreshData(articles: ArrayList<Article>) {
+    fun refreshData(articles: MutableList<Article>) {
         this.articles.clear();
         this.articles.addAll(articles)
         notifyDataSetChanged()
