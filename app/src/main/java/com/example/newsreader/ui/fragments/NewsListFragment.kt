@@ -80,13 +80,17 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
                 viewModel.getNewsArticles()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe {
+                        showProgressBar()
+                    }
                     .subscribe (
                         { articles: List<Article> ->
-                            //TODO: Remove cast from arraylist
-                        adapter.refreshData(articles as ArrayList<Article>)
+                            hideProgressBar()
+                            adapter.refreshData(articles.toMutableList())
                         }
                     )
                     {
+                        hideProgressBar()
                         Log.d(TAG, "onCreate: " + it.message)
                         Toast.makeText(view.context, it.message, Toast.LENGTH_SHORT).show()
                     }
@@ -94,6 +98,14 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
         }
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 
     override fun onDestroyView() {
