@@ -5,7 +5,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 
 class OnlineChecker
-    constructor(private val connectivityManager: ConnectivityManager): IOnlineChecker {
+constructor(private val connectivityManager: ConnectivityManager) : IOnlineChecker {
     override fun isOnline(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val activeNetwork = connectivityManager.activeNetwork ?: return false

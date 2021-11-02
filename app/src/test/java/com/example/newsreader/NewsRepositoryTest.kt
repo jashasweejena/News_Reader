@@ -34,7 +34,8 @@ class NewsRepositoryTest {
 
     private val articlesObservables = Single.just(articlesList)
 
-    private val repository = NewsRepository(newsLocalDataSource, newsRemoteDataSource, onlineChecker)
+    private val repository =
+        NewsRepository(newsLocalDataSource, newsRemoteDataSource, onlineChecker)
 
     @Test
     fun `test remote data source when local is empty and device is offline`() {

@@ -8,7 +8,6 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-// TODO: Add check for when internet connectivity is back and then refetch stuff
 class ArticlesLocalDataSource
     @Inject constructor(private val articlesDao: ArticlesDao): DataSource {
     override fun getArticles(): Single<List<Article>> =

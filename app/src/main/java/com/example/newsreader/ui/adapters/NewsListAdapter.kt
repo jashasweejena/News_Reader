@@ -11,8 +11,10 @@ class NewsListAdapter(
     private val newsListItemClickListener: NewsListItemClickListener
 ) : RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: ItemNewsBinding,
-                     private val listener: NewsListItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemNewsBinding,
+        private val listener: NewsListItemClickListener
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.news = article
             binding.listener = listener

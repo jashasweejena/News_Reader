@@ -76,7 +76,6 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         binding.recyclerView.adapter = adapter
-        //TODO: Do not re-fetch data when coming back from NewsDetailsFragment
         viewModel?.let { viewModel ->
             subscription.add(
                 viewModel.getNewsArticles()
