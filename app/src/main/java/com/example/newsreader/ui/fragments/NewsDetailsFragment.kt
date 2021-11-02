@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.databinding.FragmentNewsDetailsBinding
@@ -39,6 +41,9 @@ class NewsDetailsFragment @Inject constructor() : Fragment(), HasAndroidInjector
     ): View {
         binding = FragmentNewsDetailsBinding.inflate(inflater, container, false)
         binding.news = news
+        binding.home.setOnClickListener {
+            findNavController().popBackStack()
+        }
         return binding.root
     }
 

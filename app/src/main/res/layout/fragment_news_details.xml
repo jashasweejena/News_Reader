@@ -28,7 +28,7 @@
         android:scaleType="center" />
 
     <ImageView
-        android:id="@android:id/home"
+        android:id="@+id/home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
