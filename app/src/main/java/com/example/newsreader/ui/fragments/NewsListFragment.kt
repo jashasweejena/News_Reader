@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsreader.data.Resource
 import com.example.newsreader.data.models.Article
 import com.example.newsreader.databinding.FragmentNewsListBinding
 import com.example.newsreader.ui.adapters.NewsListAdapter
@@ -22,9 +23,6 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
@@ -40,7 +38,6 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
 
     private lateinit var binding: FragmentNewsListBinding
 
-    private val subscription = CompositeDisposable()
     private val TAG = "NewsListFragment"
 
     override fun onAttach(context: Context) {
@@ -76,28 +73,24 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         binding.recyclerView.adapter = adapter
-        viewModel?.let { viewModel ->
-            subscription.add(
-                viewModel.getNewsArticles()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe {
-                        showProgressBar()
-                    }
-                    .subscribe (
-                        { articles: List<Article> ->
-                            hideProgressBar()
-                            adapter.refreshData(articles.toMutableList())
-                        }
-                    )
-                    {
-                        hideProgressBar()
-                        Log.d(TAG, "onCreate: " + it.message)
-                        Toast.makeText(view.context, it.message, Toast.LENGTH_SHORT).show()
-                    }
-            )
-        }
+        viewModel?.getNewsArticles()
+        viewModel?.newsLiveData?.observe(viewLifecycleOwner) {
+            when(it) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    it.data?.toMutableList()?.let { data -> adapter.refreshData(data) }
+                }
 
+                is Resource.Error -> {
+                    hideProgressBar()
+                    Toast.makeText(requireContext().applicationContext, it.message, Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -111,7 +104,6 @@ class NewsListFragment @Inject constructor() : Fragment(), HasAndroidInjector {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        subscription.clear()
     }
 
 

@@ -48,14 +48,15 @@
         android:text="@{news.title}"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textColor="#fff"
+        android:textColor="?attr/text_color"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="18dp"
         android:id="@+id/content_tv"
         android:layout_width="0dp"
         android:layout_height="0dp"

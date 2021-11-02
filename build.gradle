@@ -29,4 +29,5 @@ ext {
     gsonVersion = '2.8.8'
     daggerVersion = "2.35.1"
     roomVersion = "2.3.0"
+    lifecycleVersion = "2.4.0"
 }
